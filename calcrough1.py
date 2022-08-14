@@ -26,6 +26,10 @@ def buttonPresser(button):
         div_calc()
     elif button == "+/-":
         calc_entry.insert(0,'-')
+    elif button == "^":
+        exp_calc()
+    elif button == "Pi":
+        calc_entry.insert(0,math.pi)
         
 def getString():
     string = calc_entry.get()
@@ -41,6 +45,16 @@ def getString():
         else:
             newString += i
     return newString
+def exp_calc():
+    var.set(1)
+    num = getString()
+    calc_output['text'] = num
+    calc_entry.delete(0, 'end')
+    num_button.wait_variable(var)
+    num2 = getString()
+    if isinstance(num2, str):
+        calc_entry.delete(0, 'end')
+        calc_output['text'] = float(num) ** float(num2)
 
 def mult_calc():
     var.set(1)
