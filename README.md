@@ -5,9 +5,6 @@ simple calculator using tkinter
 
 to do:
   clean up answer label for non decimal answer
-  
-  
-  add square root option
   round long decimal answer
   add history window
 
@@ -16,3 +13,7 @@ to do:
 update: 
 added Pi option
 added exponent option
+
+update2:
+added square root option
+added log base 10 option
