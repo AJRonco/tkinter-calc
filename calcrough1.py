@@ -28,6 +28,10 @@ def buttonPresser(button):
         calc_entry.insert(0,'-')
     elif button == "^":
         exp_calc()
+    elif button == "Log10":
+        log_calc()
+    elif button == "Root":
+        root_calc()
     elif button == "Pi":
         calc_entry.insert(0,math.pi)
         
@@ -45,6 +49,26 @@ def getString():
         else:
             newString += i
     return newString
+
+
+def log_calc():
+    var.set(1)
+    num = getString()
+    calc_output['text'] = num
+    calc_entry.delete(0, 'end')
+    if isinstance(num, str):
+        calc_entry.delete(0, 'end')
+        calc_output['text'] = math.log10(float(num))
+        
+def root_calc():
+    var.set(1)
+    num = getString()
+    calc_output['text'] = num
+    calc_entry.delete(0, 'end')
+    if isinstance(num, str):
+        calc_entry.delete(0, 'end')
+        calc_output['text'] = math.sqrt(float(num))
+
 def exp_calc():
     var.set(1)
     num = getString()
@@ -122,7 +146,8 @@ buttonDict = {7:{"row":1,"column":0},8:{"row":1,"column":1},
               "/":{"row":4,"column":0},0:{"row":4,"column":1},
               ".":{"row":4,"column":2},"x":{"row":4,"column":3},
          "^":{"row":5,"column":0}, "+/-":{"row":5,"column":1}, 
-         "Pi":{"row":5,"column":2,},"=":{"row":5,"column":3}}
+         "Pi":{"row":5,"column":2,},"=":{"row":5,"column":3},
+         "Root":{"row":"6","column":"0"}, "Log10":{"row":"6","column":"1"}}
 
 
 var = tk.IntVar()
@@ -136,7 +161,7 @@ for k,v in buttonDict.items():
             num_button = tk.Button(master=calculator, text=k, command=lambda k=k:buttonPresser(k))
             num_button.grid(row=buttonDict[k]["row"], column=buttonDict[k]["column"],padx=0, pady=0,sticky="nsew")
         
-for i in range(0,5):
+for i in range(0,6):
 
     calculator.rowconfigure(i+1,weight = 1)
     if i < 4:
