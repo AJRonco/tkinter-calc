@@ -10,30 +10,27 @@ import math
 
 def buttonPresser(button):
     
-    if isinstance(button, int) or button ==".":
-        calc_entry.insert('end',button)
+    if isinstance(button, int) or button ==".":  calc_entry.insert('end',button)
     elif button == "C":
         var.set(1)
         calc_entry.delete(0, 'end')
         calc_output['text'] = 0
-    elif button == "+":
-        add_calc()
-    elif button == "-":
-        sub_calc()
-    elif button == "x":
-        mult_calc()
-    elif button == "/":
-        div_calc()
-    elif button == "+/-":
-        calc_entry.insert(0,'-')
-    elif button == "^":
-        exp_calc()
-    elif button == "Log10":
-        log_calc()
-    elif button == "Root":
-        root_calc()
-    elif button == "Pi":
-        calc_entry.insert(0,math.pi)
+    elif button == "+": add_calc()
+    elif button == "-": sub_calc()
+    elif button == "x": mult_calc()
+    elif button == "/": div_calc()
+    elif button == "+/-": calc_entry.insert(0,'-')
+    elif button == "^": exp_calc()
+    elif button == "Log10": log_calc()
+    elif button == "Root": root_calc()
+    elif button == "Pi": calc_entry.insert(0,math.pi)
+    else:
+        var.set(1)
+        calc_entry.delete(0, 'end')
+        calc_output['text'] = 0
+        
+def lastValue():
+    pass
         
 def getString():
     string = calc_entry.get()
@@ -42,12 +39,10 @@ def getString():
     for i in string:
         if i =='-' :
             count +=1
-            if i == '-' and count > 1:
-                continue
-            else:
-                newString += i
-        else:
-            newString += i
+            if i == '-' and count > 1:  continue
+            else:  newString += i
+        else: newString += i
+        
     return newString
 
 
@@ -55,19 +50,21 @@ def log_calc():
     var.set(1)
     num = getString()
     calc_output['text'] = num
-    calc_entry.delete(0, 'end')
     if isinstance(num, str):
         calc_entry.delete(0, 'end')
         calc_output['text'] = math.log10(float(num))
-        
+        calc_entry.insert(0, round(calc_output["text"], 5))
+
+                          
 def root_calc():
     var.set(1)
     num = getString()
-    calc_output['text'] = num
-    calc_entry.delete(0, 'end')
+    calc_output['text'] = num 
     if isinstance(num, str):
         calc_entry.delete(0, 'end')
-        calc_output['text'] = math.sqrt(float(num))
+        calc_output['text'] = round(math.sqrt(float(num)),8)
+        calc_entry.insert(0, round(calc_output["text"], 8))
+        
 
 def exp_calc():
     var.set(1)
@@ -76,9 +73,11 @@ def exp_calc():
     calc_entry.delete(0, 'end')
     num_button.wait_variable(var)
     num2 = getString()
+    calc_output['text'] = num
     if isinstance(num2, str):
         calc_entry.delete(0, 'end')
         calc_output['text'] = float(num) ** float(num2)
+        calc_entry.insert(0, round(calc_output["text"], 5))
 
 def mult_calc():
     var.set(1)
@@ -87,9 +86,11 @@ def mult_calc():
     calc_entry.delete(0, 'end')
     num_button.wait_variable(var)
     num2 = getString()
+    calc_output['text'] = num
     if isinstance(num2, str):
         calc_entry.delete(0, 'end')
         calc_output['text'] = float(num) * float(num2)
+        calc_entry.insert(0, round(calc_output["text"], 5))
 
 def div_calc():
     var.set(1)
@@ -98,9 +99,11 @@ def div_calc():
     calc_entry.delete(0, 'end')
     num_button.wait_variable(var)
     num2 = getString()
+    calc_output['text'] = num
     if isinstance(num2, str):
         calc_entry.delete(0, 'end')
         calc_output['text'] = float(num) / float(num2)
+        calc_entry.insert(0, round(calc_output["text"], 5))
         
 def sub_calc():
     var.set(1)
@@ -109,9 +112,11 @@ def sub_calc():
     calc_entry.delete(0, 'end')
     num_button.wait_variable(var)
     num2 = getString()
+    calc_output['text'] = num
     if isinstance(num2, str):
         calc_entry.delete(0, 'end')
         calc_output['text'] = float(num) - float(num2)
+        calc_entry.insert(0, round(calc_output["text"], 5))
 
 def add_calc():
     var.set(1)
@@ -120,9 +125,11 @@ def add_calc():
     calc_entry.delete(0, 'end')
     num_button.wait_variable(var)
     num2 = getString()
+    calc_output['text'] = num
     if isinstance(num2, str):
         calc_entry.delete(0, 'end')
         calc_output['text'] = float(num) + float(num2)
+        calc_entry.insert(0, round(calc_output["text"], 5))
 
 
 
@@ -164,8 +171,7 @@ for k,v in buttonDict.items():
 for i in range(0,6):
 
     calculator.rowconfigure(i+1,weight = 1)
-    if i < 4:
-        calculator.columnconfigure(i,weight =1)
+    if i < 4: calculator.columnconfigure(i,weight =1)
         
 userinput = calc_entry.get()
 
